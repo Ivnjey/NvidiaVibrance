@@ -1,0 +1,33 @@
+<Window xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:NvidiaVibrance.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Class="NvidiaVibrance.Views.VibranceControlWindow"
+    x:DataType="vm:MainWindowViewModel"
+    Icon="/Assets/avalonia-logo.ico"
+    Title="Set Vibrance"
+    CanResize="False"
+    Background="Khaki"
+    Width="220" Height="50"
+    WindowStartupLocation="Manual"
+    SystemDecorations="None"
+    ShowInTaskbar="False"
+    CornerRadius="6"
+    Padding="5,0">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <StackPanel Orientation="Vertical" Spacing="5">
+        <Slider Minimum="0"
+            Maximum="100"
+            Value="{Binding CurrentVibrance, Mode=TwoWay}"
+            TickFrequency="5"
+            IsSnapToTickEnabled="True" />
+        <TextBlock Text="{Binding CurrentVibrance}" HorizontalAlignment="Center" FontSize="10" />
+    </StackPanel>
+
+</Window> 
