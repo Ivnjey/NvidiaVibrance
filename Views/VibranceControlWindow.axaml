@@ -6,7 +6,7 @@
     mc:Ignorable="d"
     x:Class="NvidiaVibrance.Views.VibranceControlWindow"
     x:DataType="vm:MainWindowViewModel"
-    Icon="/Assets/avalonia-logo.ico"
+    Icon="/Assets/control-vibrance.ico"
     Title="Set Vibrance"
     CanResize="False"
     Background="Khaki"

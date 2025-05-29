@@ -17,7 +17,7 @@
 
     <TrayIcon.Icons>
         <TrayIcons>
-            <TrayIcon Icon="/Assets/avalonia-logo.ico" 
+            <TrayIcon Icon="/Assets/control-vibrance.ico" 
                       ToolTipText="Nvidia Vibrance Control"
                       Clicked="OnTrayIconClicked">
                 <TrayIcon.Menu>
