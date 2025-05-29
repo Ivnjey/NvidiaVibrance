@@ -1,19 +1,19 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using NvidiaVibrance.Models; // Предполагается, что Controller.cs находится в Models
+using NvidiaVibrance.Models;
 using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using NvidiaVibrance.Views; // Добавлено для VibranceControlWindow
-using Avalonia.Platform; // Для Screen
+using NvidiaVibrance.Views;
+using Avalonia.Platform;
 
 namespace NvidiaVibrance.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    private NvidiaDisplayController? _displayController; 
-    private bool _isMonochrome; 
+    private NvidiaDisplayController? _displayController;
+    private bool _isMonochrome;
     private VibranceControlWindow? _vibranceWindow;
 
     [ObservableProperty]
@@ -23,10 +23,10 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         _displayController = displayController;
         InitializeVibrance();
-        IsMonochrome = false; 
+        IsMonochrome = false;
     }
 
-    public MainWindowViewModel() 
+    public MainWindowViewModel()
     {
         if (!Avalonia.Controls.Design.IsDesignMode)
         {
@@ -37,11 +37,11 @@ public partial class MainWindowViewModel : ViewModelBase
             catch (Exception ex)
             {
                 Console.WriteLine($"Error creating NvidiaDisplayController in default constructor: {ex.Message}");
-                _displayController = null; 
+                _displayController = null;
             }
         }
         InitializeVibrance();
-        IsMonochrome = false; 
+        IsMonochrome = false;
     }
 
     private void InitializeVibrance()
@@ -50,7 +50,7 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             try
             {
-                CurrentVibrance = _displayController.GetDigitalVibrance(); 
+                CurrentVibrance = _displayController.GetDigitalVibrance();
             }
             catch (Exception ex)
             {
@@ -66,7 +66,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
     partial void OnCurrentVibranceChanged(int value)
     {
-        SetVibranceInternal(value); 
+        SetVibranceInternal(value);
     }
 
     private void SetVibranceInternal(int level)
@@ -83,7 +83,7 @@ public partial class MainWindowViewModel : ViewModelBase
         catch (ArgumentOutOfRangeException ex)
         {
             Console.WriteLine(ex.Message);
-            InitializeVibrance(); 
+            InitializeVibrance();
         }
         catch (Exception ex)
         {
@@ -109,7 +109,7 @@ public partial class MainWindowViewModel : ViewModelBase
             Console.WriteLine($"Error resetting vibrance: {ex.Message}");
         }
     }
-    
+
     public bool IsMonochrome
     {
         get => _isMonochrome;
@@ -127,7 +127,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private void ToggleMonochrome()
     {
-        IsMonochrome = !IsMonochrome; 
+        IsMonochrome = !IsMonochrome;
     }
 
     [RelayCommand]
@@ -151,27 +151,27 @@ public partial class MainWindowViewModel : ViewModelBase
             {
                 DataContext = this
             };
-            _vibranceWindow.Closed += (s, e) => _vibranceWindow = null; 
+            _vibranceWindow.Closed += (s, e) => _vibranceWindow = null;
             _vibranceWindow.Deactivated += (s, e) => _vibranceWindow?.Close();
 
             // Позиционирование в правом нижнем углу
             if (_vibranceWindow.Screens?.Primary is Screen primaryScreen)
             {
-                double windowWidth = _vibranceWindow.Width; 
+                double windowWidth = _vibranceWindow.Width;
                 double windowHeight = _vibranceWindow.Height;
-                
+
                 // Если DesignWidth используется как реальная ширина:
                 // Для VibranceControlWindow d:DesignWidth="220" d:DesignHeight="80"
                 // SizeToContent="Height" значит ширина будет DesignWidth
-                windowWidth = 220; // Возьмем из XAML пока
+                // windowWidth = 220; // Возьмем из XAML пока
 
                 var x = primaryScreen.WorkingArea.Right - windowWidth - 10; // 10px отступ
                 var y = primaryScreen.WorkingArea.Bottom - windowHeight - 10; // 10px отступ
                 _vibranceWindow.Position = new PixelPoint((int)x, (int)y);
             }
-            
+
             _vibranceWindow.Show();
-            _vibranceWindow.Activate(); 
+            _vibranceWindow.Activate();
         }
         else
         {
@@ -180,9 +180,9 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void CloseVibranceWindow() 
+    private void CloseVibranceWindow()
     {
-        _vibranceWindow?.Close(); 
+        _vibranceWindow?.Close();
     }
 
     [RelayCommand]
