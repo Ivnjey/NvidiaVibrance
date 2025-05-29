@@ -2,15 +2,7 @@
 using NvAPIWrapper;
 using NvAPIWrapper.Display;
 
-
-public class Program
-{
-    public static void Main()
-    {
-        var controller = new NvidiaVibrance.NvidiaDisplayController();
-    }
-}
-namespace NvidiaVibrance
+namespace NvidiaVibrance.Models
 {
     public class NvidiaDisplayController
     {
@@ -42,10 +34,16 @@ namespace NvidiaVibrance
         {
             return displayDevice.DigitalVibranceControl.CurrentLevel;
         }
+        public void SetMonochrome(bool IsMonochrome)
+        {
+            int _level = IsMonochrome ? 0 : 50;
+            SetDigitalVibrance(_level);
+        }
         public void SetDigitalVibranceDefault()
         {
             int colorControl = displayDevice.DigitalVibranceControl.DefaultLevel;
             SetDigitalVibrance(colorControl);
         }
+
     }
 }
