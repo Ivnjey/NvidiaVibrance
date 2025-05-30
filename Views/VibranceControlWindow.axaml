@@ -28,7 +28,8 @@
             Maximum="100"
             Value="{Binding CurrentVibrance, Mode=TwoWay}"
             TickFrequency="1"
-            IsSnapToTickEnabled="True" />
+            IsSnapToTickEnabled="True"
+            PointerWheelChanged="OnSliderMouseWheel" />
     </StackPanel>
 
 </Window> 
